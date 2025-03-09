@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Teslimat İşi</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+        
+        :root {
+            --primary-red: #ff3c2e;
+            --primary-dark-red: #d62c22;
+            --secondary-yellow: #ffc107;
+            --text-light: #ffffff;
+            --text-dark: #111111;
+            --shadow-normal: 0 10px 30px rgba(0, 0, 0, 0.25);
+            --shadow-hover: 0 15px 40px rgba(255, 60, 46, 0.3);
+            --border-radius: 16px;
+            --transition-fast: all 0.2s ease;
+            --transition-normal: all 0.3s ease;
+            --glow-effect: 0 0 20px rgba(255, 60, 46, 0.4);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: transparent;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .container {
+            width: 520px;
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            position: relative;
+            border: 2px solid var(--primary-red);
+            border-radius: 2px;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-dark-red) 100%);
+            color: var(--text-light);
+            padding: 25px;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
+            font-size: 38px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .pizza-logo-wrapper {
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: spin 20s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .pizza-logo {
+            width: 100px;
+            height: 100px;
+            background: var(--text-dark);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 3px solid var(--secondary-yellow);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 193, 7, 0.4);
+            transform: rotate(15deg);
+            font-size: 50px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: rotate(15deg) translateY(0px); }
+            50% { transform: rotate(15deg) translateY(-10px); }
+            100% { transform: rotate(15deg) translateY(0px); }
+        }
+        
+        .content {
+            padding: 35px;
+            color: var(--text-light);
+            position: relative;
+        }
+        
+        .gradient-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(255, 60, 46, 0.15), transparent 70%);
+            z-index: -1;
+        }
+        
+        .job-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--primary-red);
+            padding-bottom: 10px;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .job-title::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 60%;
+            height: 3px;
+            background: var(--secondary-yellow);
+        }
+        
+        .job-info {
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .job-info p {
+            margin-bottom: 15px;
+            font-size: 16px;
+            position: relative;
+            padding-left: 35px;
+            font-weight: 400;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .job-info p:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 25px;
+            height: 25px;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        
+        .job-info p:nth-child(1):before {
+            background-image: url('https://img.icons8.com/emoji/48/000000/pizza-emoji.png');
+        }
+        
+        .job-info p:nth-child(2):before {
+            background-image: url('https://img.icons8.com/emoji/48/000000/motorcycle-emoji.png');
+        }
+        
+        .job-info p:nth-child(3):before {
+            background-image: url('https://img.icons8.com/emoji/48/000000/money-bag-emoji.png');
+        }
+        
+        .highlight {
+            color: var(--secondary-yellow);
+            font-weight: 600;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .highlight::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 6px;
+            background-color: rgba(255, 60, 46, 0.3);
+            z-index: -1;
+            transform: translateY(2px);
+        }
+        
+        .job-details {
+            background: var(--background-card);
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 5px solid var(--primary-red);
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-normal);
+            transition: var(--transition-normal);
+            transform: translateZ(0);
+        }
+        
+        .job-details:hover {
+            transform: translateY(-5px) translateZ(0);
+            box-shadow: var(--shadow-hover);
+            border-left: 5px solid var(--secondary-yellow);
+        }
+        
+        .job-details-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--secondary-yellow);
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .job-details-title:before {
+            content: "★";
+            margin-right: 10px;
+            color: var(--secondary-yellow);
+        }
+        
+        .job-details p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 15px;
+            position: relative;
+            padding-left: 35px;
+        }
+        
+        .job-details p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .icon {
+            position: absolute;
+            left: 0;
+            font-size: 22px;
+            color: var(--primary-red);
+            width: 25px;
+            text-align: center;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+        
+        button {
+            padding: 16px 28px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-normal);
+            outline: none;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            font-size: 16px;
+        }
+        
+        #start-job {
+            background: linear-gradient(to right, var(--primary-red), var(--primary-dark-red));
+            color: var(--text-light);
+            flex-grow: 1;
+            margin-right: 15px;
+            text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(255, 60, 46, 0.3);
+        }
+        
+        #start-job:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 60, 46, 0.4);
+        }
+        
+        #start-job:active {
+            transform: translateY(-1px);
+        }
+        
+        #start-job::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s;
+        }
+        
+        #start-job:hover::before {
+            left: 100%;
+        }
+        
+        #close {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ddd;
+            width: 120px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 15px;
+            backdrop-filter: blur(5px);
+            transition: var(--transition-normal);
+        }
+        
+        #close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .total-deliveries {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+            color: #aaa;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: inline-block;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .delivery-points {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .point {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            margin: 0 5px;
+            transition: var(--transition-fast);
+        }
+        
+        .point.active {
+            background-color: var(--primary-red);
+            box-shadow: 0 0 10px rgba(255, 60, 46, 0.5);
+        }
+        
+        .reward-tag {
+            position: absolute;
+            top: 25px;
+            left: -35px;
+            background: var(--secondary-yellow);
+            color: var(--text-dark);
+            padding: 8px 35px;
+            font-weight: bold;
+            transform: rotate(-45deg);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            z-index: 2;
+            text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.4);
+        }
+        
+        .pizza-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: -2;
+            opacity: 0.05;
+        }
+        
+        .pizza-slice {
+            position: absolute;
+            font-size: 40px;
+            animation: pizzaFloat 15s linear infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes pizzaFloat {
+            0% {
+                transform: translateY(-5vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(105vh) rotate(359deg);
+                opacity: 0;
+            }
+        }
+        
+        .salary-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15px;
+            background-color: rgba(255, 193, 7, 0.15);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px dashed var(--secondary-yellow);
+        }
+        
+        .salary-info-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            color: var(--secondary-yellow);
+        }
+        
+        .salary-text {
+            font-size: 15px;
+            color: var(--secondary-yellow);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="reward-tag">YÜKSEK KAZANÇ!</div>
+        <div class="header">
+            PIZZA TESLIMAT MERKEZI
+            <div class="pizza-logo-wrapper">
+                <div class="pizza-logo">🍕</div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="gradient-bg"></div>
+            
+            <!-- Pizza slice background animation -->
+            <div class="pizza-bg">
+                <div class="pizza-slice" style="left: 10%; animation-delay: 0s;">🍕</div>
+                <div class="pizza-slice" style="left: 30%; animation-delay: 3s;">🍕</div>
+                <div class="pizza-slice" style="left: 50%; animation-delay: 6s;">🍕</div>
+                <div class="pizza-slice" style="left: 70%; animation-delay: 9s;">🍕</div>
+                <div class="pizza-slice" style="left: 90%; animation-delay: 12s;">🍕</div>
+            </div>
+            
+            <div class="job-title">Pizza Kuryeliği</div>
+            <div class="job-info">
+                <p>Pizza teslimatçısı olarak <span class="highlight">çalışmaya hazır mısın?</span></p>
+                <p>Scooter ile şehirde <span class="highlight">sıcak pizzaları</span> müşterilere ulaştır!</p>
+                <p>Her teslimat için <span class="highlight">150-300$</span> arası ödeme seni bekliyor.</p>
+            </div>
+            
+            <div class="job-details">
+                <div class="job-details-title">Avantajlar</div>
+                <p><span class="icon">🛵</span> Ücretsiz scooter temin edilir</p>
+                <p><span class="icon">📍</span> GPS ile kolay yönlendirme</p>
+                <p><span class="icon">💰</span> Her teslimat anında ödeme</p>
+                <p><span class="icon">⏱️</span> İstediğin zaman bırakabilirsin</p>
+            </div>
+            
+            <div class="salary-info">
+                <div class="salary-info-icon">💵</div>
+                <div class="salary-text">Saatlik 3000$'a kadar kazanç sağlayabilirsin!</div>
+            </div>
+            
+            <div class="total-deliveries">
+                Her vardiya için ortalama 3-8 teslimat
+            </div>
+            
+            <div class="delivery-points">
+                <div class="point active"></div>
+                <div class="point active"></div>
+                <div class="point active"></div>
+                <div class="point"></div>
+                <div class="point"></div>
+                <div class="point"></div>
+                <div class="point"></div>
+                <div class="point"></div>
+            </div>
+            
+            <div class="buttons">
+                <button id="start-job">Hemen Başla</button>
+                <button id="close">Kapat</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Menünün başlangıçta gizli olduğundan emin olalım
+        document.body.style.display = 'none';
+        
+        document.getElementById('start-job').addEventListener('click', function() {
+            fetch(`https://${GetParentResourceName()}/startJob`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            });
+            closeUI();
+        });
+        
+        document.getElementById('close').addEventListener('click', function() {
+            closeUI();
+        });
+        
+        function closeUI() {
+            document.body.style.display = 'none';
+            fetch(`https://${GetParentResourceName()}/closeUI`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            });
+        }
+        
+        window.addEventListener('message', function(event) {
+            var data = event.data;
+            if (data.type === 'open') {
+                document.body.style.display = 'flex';
+            } else if (data.type === 'close') {
+                document.body.style.display = 'none';
+            }
+        });
+        
+        // Arayüzü klavye ile kapatma
+        document.addEventListener('keyup', function(event) {
+            if (event.key === 'Escape') {
+                closeUI();
+            }
+        });
+
+        // Sayfa yüklendiğinde otomatik olarak açılmasını engelleyelim
+        window.onload = function() {
+            document.body.style.display = 'none';
+        };
+    </script>
+</body>
+</html>
